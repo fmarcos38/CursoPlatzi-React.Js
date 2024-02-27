@@ -3,34 +3,45 @@ import { TodoSearch } from './components/todoSearch';
 import { TodoList } from './components/todoList';
 import { TodoItem } from './components/todoItem';
 import { CreateTodoButton } from './components/createTodoButton';
-import React from 'react';
+import React, { useState } from 'react';
 
+//NOTA: los estados se manejan en el componente padre, y se pasan por props a los hijos
 //creo array d areas
-const todos = [
-  { text: 'Cortar cebolla', completed: false },
+const arrTodos = [
+  { text: 'Cortar cebolla', completed: true },
   { text: 'Tomar el curso de intro a React', completed: false },
   { text: 'Llorar con la llorona', completed: false },
-  { text: 'L', completed: true }
+  { text: 'Decidir de q mierda laburar', completed: true }
 ];
 
+
 function App() {
+  //estado para los todos
+  const [todos, setTodos] = useState(arrTodos);
+  //estado para el SEARCH
+  const [search, setSearch] = useState(''); console.log(search);
+  
+  //variables para el total y completados
+  const completedTodos = todos.filter( todo => !!todo.completed ).length;
+  const totalTodos = todos.length;
+
   return (
     /* uilizo React.Fragment en vez de un div */
-    <React.Fragment>
-      <TodoCounter total={10} completed={5}/>
-      <TodoSearch />
+    <>
+      <TodoCounter total={totalTodos} completed={completedTodos}/>
+      <TodoSearch search={search} setSearch={setSearch}/>
 
       <TodoList>
         {/* todo lo q se desarrolle dentro del comp TodoList --> react lo pasa por props en children */}
         {
-          todos.map(todo => (
+          arrTodos.map(todo => (
             <TodoItem key={todo.text} text={todo.text} completed={todo.completed} />
           ))
         }
       </TodoList>
 
       <CreateTodoButton />
-    </React.Fragment>
+    </>
   );
 }
 

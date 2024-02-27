@@ -1,6 +1,8 @@
+import React from 'react';
 import './todoSearch.css';
 
-function TodoSearch({ search, setSearch }) {
+function TodoSearch({ search, setSearch }) { //le paso el estado y la funcion q modifica el estado
+
     return (
         <input
             type="text"
