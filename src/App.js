@@ -14,27 +14,38 @@ import React, { useState } from 'react';
   { text: 'Decidir de q mierda laburar', completed: true }
 ]; */
 
-
-function App() {
-
-  //Manejo del localStorage
-  const localStorageTodos = JSON.parse(localStorage.getItem('todos')); //este va a ser mi nuevo estado
-  let todosInicial; //variable para el estado inicial con los todos del localStorage
-  if(!localStorageTodos) { //si no hay nada en el localStorage creo un array vacio
-    localStorage.setItem('todos', JSON.stringify([]));
+//creacion de un Hooks personalizado para el manejo del localStorage
+//el hook recibe el nombre del item y su valor inicial(q es un array vacio o cualquier estado inicial q se le pase al hook)
+function useLocalStorage(itemName, initialValue) {
+  //busco el item en el localStorage
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem; //variable para guardar el estado inical, osea lo q tenga el localStorage
+  //si no existe el item en el localStorage lo creo
+  if(!localStorageItem) {
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem = initialValue;
   }else{
-    todosInicial = localStorageTodos;
+    parsedItem = JSON.parse(localStorageItem);
   }
   
-  //funcion para actualizar el localStorage y el estado
-  const saveTodos = (newTodos) => {
-    const stringTodos = JSON.stringify(newTodos);
-    localStorage.setItem('todos', stringTodos);
-    setTodos(newTodos);
+  //creo estado local para el item del localStorage y lo inicializo con el valor q obtuve
+  const [item, setItem] = useState(parsedItem);
+  //creo funcion para guardar en el localStorage, es la q eporto en el rreturn
+  const saveItem = (newItem) => {
+    setItem(newItem);
+    localStorage.setItem(itemName, JSON.stringify(newItem));
   };
-  
-  //estado para los todos
-  const [todos, setTodos] = useState(todosInicial);
+  //retorno el estado y la funcion
+  return [
+    item,
+    saveItem
+  ];
+}
+
+function App() {    
+  //estado para los todos - uso el hook personalizado
+  //sino recuerdo lo q tiene el localStorage, escribo en la consola del inspector localStorage
+  const [todos, setTodos] = useLocalStorage('todos', []);
   //estado para el SEARCH
   const [search, setSearch] = useState('');
   
@@ -50,14 +61,14 @@ function App() {
     const todoIndex = todos.findIndex( todo => todo.text === text );
     const newTodos = [...todos];
     newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
-    saveTodos(newTodos); //actualizo localStorage y estado
+    setTodos(newTodos); //actualizo localStorage y estado
   };
   //funcion para borrar
   const handlerDelete = (text) => {
     const todoIndex = todos.findIndex( todo => todo.text === text );
     const newTodos = [...todos];
     newTodos.splice(todoIndex, 1);
-    saveTodos(newTodos); //actualizo localStorage y estado
+    setTodos(newTodos); //actualizo localStorage y estado
   };
 
 
