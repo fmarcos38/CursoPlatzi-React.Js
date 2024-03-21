@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/fmarcos38/CursoPlatzi-React.Js/static/css/main.37f34c90.css",
+    "main.js": "/fmarcos38/CursoPlatzi-React.Js/static/js/main.92059d9e.js",
+    "static/js/453.ac2732c7.chunk.js": "/fmarcos38/CursoPlatzi-React.Js/static/js/453.ac2732c7.chunk.js",
+    "index.html": "/fmarcos38/CursoPlatzi-React.Js/index.html",
+    "main.37f34c90.css.map": "/fmarcos38/CursoPlatzi-React.Js/static/css/main.37f34c90.css.map",
+    "main.92059d9e.js.map": "/fmarcos38/CursoPlatzi-React.Js/static/js/main.92059d9e.js.map",
+    "453.ac2732c7.chunk.js.map": "/fmarcos38/CursoPlatzi-React.Js/static/js/453.ac2732c7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.37f34c90.css",
+    "static/js/main.92059d9e.js"
+  ]
+}
