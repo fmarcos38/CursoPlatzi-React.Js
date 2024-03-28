@@ -1,13 +1,13 @@
 import React from 'react';
 import './todoSearch.css';
 
-function TodoSearch({ search, setSearch }) { //le paso el estado y la funcion q modifica el estado
+function TodoSearch({ searchValue, setSearchValue }) { //le paso el estado y la funcion q modifica el estado
 
     return (
         <input
             type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
             className="TodoSearch"
         />
     );
